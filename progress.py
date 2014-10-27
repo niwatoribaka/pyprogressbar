@@ -6,7 +6,7 @@ class TerminalProgressBar():
     '''
     A terminal applet for displaying a progress bar.
 
-    PROPERTIES
+    PROGRESS VARIABLES
             status
 
                     A string corresponding to the progress bar title.
@@ -27,6 +27,10 @@ class TerminalProgressBar():
 
                     A single character string detailing the character used for showing progress.
                     Default '='
+
+            done
+
+                    boolean value representing whether or not the process is complete.
 
     FUNCTIONS
             set(...)
@@ -52,6 +56,9 @@ class TerminalProgressBar():
         self.handlefore = Fore.GREEN
         self.incrfore = Fore.RED
 
+        # number of increment characters
+        self.progress = 0
+
         # progress variables
         self.pv = {
             'status': "Initializing...",
@@ -59,7 +66,6 @@ class TerminalProgressBar():
             'bar_width': 45,
             'bar_handles': ['[', ']'],
             'increment_char': '+',
-            'progress': 0,
             'done': False,
         }
         self.update()
@@ -86,9 +92,9 @@ class TerminalProgressBar():
             Fore.RESET +
             self.incrfore +
             self.pv['increment_char'] *
-            self.pv['progress'])
+            self.progress)
         sys.stdout.write(' ' * (self.pv['bar_width']
-                                - self.pv['progress']
+                                - self.progress
                                 - len(self.pv['bar_handles'][0])
                                 - len(self.pv['bar_handles'][1])))
         sys.stdout.write(
@@ -109,7 +115,7 @@ class TerminalProgressBar():
     def percentage(self, perc):
         max_width = self.pv['bar_width'] - len(''.join(self.pv['bar_handles']))
         prog = int(max_width * perc * .01)
-        self.set(progress=prog)
+        self.progress=prog
 
 
 def main():
