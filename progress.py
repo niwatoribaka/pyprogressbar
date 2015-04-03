@@ -7,44 +7,29 @@ class TerminalProgressBar():
     A terminal applet for displaying a progress bar.
 
     PROGRESS VARIABLES
-            status
-
-                    A string corresponding to the progress bar title.
-
-            status_width
-
-                    An integer detailing the maximum length of a bar title.
-
-            bar_width
-
-                    An integer detailing the length of the progress bar.
-
-            bar_handles
-
-                    A list of of length 2 containing strings.  Default ['[', ']']
-
-            increment_char
-
-                    A single character string detailing the character used for showing progress.
-                    Default '='
-
-            done
-
-                    boolean value representing whether or not the process is complete.
-
+        status
+            A string corresponding to the progress bar title.
+        status_width
+            An integer detailing the maximum length of a bar title.
+        bar_width
+            An integer detailing the length of the progress bar.
+        bar_handles
+            A list of of length 2 containing strings.  Default ['[', ']']
+        increment_char
+            A single character string detailing the character used for
+            showing progress.  Default '='
+        done
+            boolean value representing whether or not the process is complete.
     FUNCTIONS
-            set(...)
+        set(...)
+            set(property=setting, )
 
-                    set(property=setting, )
+            Sets progress bar property to desired setting and updates display.
+        percentage(...)
+            percentage(x)
 
-                    Sets progress bar property to desired setting and updates display.
-
-            percentage(...)
-
-                    percentage(x)
-
-                    Sets the progress bar to x percentage of completion.
-                    Expects a value between 0 and 100, inclusive.
+            Sets the progress bar to x percentage of completion.
+            Expects a value between 0 and 100, inclusive.
     '''
 
     def __init__(self):
@@ -115,7 +100,7 @@ class TerminalProgressBar():
     def percentage(self, perc):
         max_width = self.pv['bar_width'] - len(''.join(self.pv['bar_handles']))
         prog = int(max_width * perc * .01)
-        self.progress=prog
+        self.progress = prog
 
 
 def main():
@@ -124,8 +109,9 @@ def main():
     tpb = TerminalProgressBar()
     start = time.time()
     now = time.time()
-    while now - start <= 20.:
-        tpb.percentage(100. * (now - start) / 20.)
+    test_time = 10.
+    while now - start <= test_time:
+        tpb.percentage(100. * (now - start) / test_time)
         tpb.set(status=str(now - start))
         now = time.time()
         time.sleep(.05)
