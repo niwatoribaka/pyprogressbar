@@ -128,6 +128,7 @@ def main():
         tpb.percentage(100. * (now - start) / 20.)
         tpb.set(status=str(now - start))
         now = time.time()
+        time.sleep(.05)
     tpb.percentage(100.)
     tpb.set(status='Finished!', done=True)
     print '\n\n'
